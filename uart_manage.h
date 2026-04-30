@@ -53,6 +53,7 @@ uart_inferface_t *uart_manage_get_obj_by_name(const char *name);
 int uart_manage_register_interface(uart_inferface_t *m_obj);
 int uart_manage_init_table(const uart_inferface_t *table, uint16_t table_size);
 int uart_manage_set_recv_callback(UART_HandleTypeDef *huart, interface_recv_fn_t recv_callback);
+int uart_manage_set_recv_callback_by_name(const char *name, interface_recv_fn_t recv_callback);
 
 void uart_manage_enable_dma_recv(UART_HandleTypeDef *huart);
 void uart_manage_enable_dma_recv_by_name(const char *name);

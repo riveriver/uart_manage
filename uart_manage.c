@@ -159,6 +159,18 @@ int uart_manage_set_recv_callback(UART_HandleTypeDef *huart, interface_recv_fn_t
   return 0;
 }
 
+int uart_manage_set_recv_callback_by_name(const char *name, interface_recv_fn_t recv_callback)
+{
+  uart_inferface_t *obj = uart_manage_get_obj_by_name(name);
+  if (obj == NULL)
+  {
+    return -1;
+  }
+
+  obj->recv_callback = recv_callback;
+  return 0;
+}
+
 int uart_manage_init_table(const uart_inferface_t *table, uint16_t table_size)
 {
   if (table == NULL || table_size == 0U || table_size > UART_MANAGE_MAX_OBJECTS)
