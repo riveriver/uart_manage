@@ -1,3 +1,4 @@
+#include "uart_manage_config.h"
 #include "uart_manage.h"
 
 #include <stdint.h>
@@ -23,7 +24,7 @@ static inline uintptr_t dma_align_up_32(uintptr_t addr)
 
 static inline void dma_clean_cache_by_addr(const void *addr, uint32_t len)
 {
-#if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+#if (USE_DMA_CACHE_MANAGE == 1)
   uintptr_t start = dma_align_down_32((uintptr_t)addr);
   uintptr_t end   = dma_align_up_32((uintptr_t)addr + len);
   SCB_CleanDCache_by_Addr((uint32_t *)start, (int32_t)(end - start));
@@ -35,7 +36,7 @@ static inline void dma_clean_cache_by_addr(const void *addr, uint32_t len)
 
 static inline void dma_invalidate_cache_by_addr(const void *addr, uint32_t len)
 {
-#if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+#if (USE_DMA_CACHE_MANAGE == 1)
   uintptr_t start = dma_align_down_32((uintptr_t)addr);
   uintptr_t end   = dma_align_up_32((uintptr_t)addr + len);
   SCB_InvalidateDCache_by_Addr((uint32_t *)start, (int32_t)(end - start));
